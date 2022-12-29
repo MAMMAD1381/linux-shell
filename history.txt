@@ -1,0 +1,195 @@
+exit
+ls
+is
+pwd
+ls
+ lls
+exit
+ls
+a a.txt
+b b.txt
+exit
+b b.txt
+b b.txt
+exit
+b b.txt
+b b,txt
+b b.txt
+b b.txt
+b b.txt
+exit
+b b.txt
+b b.txt
+exit
+b b.txt
+exit
+b b.txt
+exit
+b b.txt
+b b.txt
+exit
+b b.txt
+exit
+b b.txt
+b b.txt
+b b.txt
+exit
+b b.txt
+exit
+b b.txt
+b b.txt
+b b.txt
+exit
+b b.txt
+exit
+b b.txt
+a sds
+b sds
+b sdlksfm
+exit
+b b.txt
+a
+a
+a a.txt
+a
+exit
+b
+a
+exit
+exit
+exit
+exit
+b bs
+exit
+b b
+b kks
+a dds
+exit
+exit
+exit
+exit
+a sd
+a dss
+a dsds
+exit
+exit
+exit
+exit
+b dssd
+oos
+exit
+b lsdss
+b ds
+exit
+b dsds
+b ldslds
+b dskdsd
+b b.txt
+a dsds
+a dsldfffs
+a fdkdfl
+a a.txt
+exit
+b b.txt
+b dsds
+exit
+b b;lkds
+a ldksklds
+a ldss
+b l;sa
+exit
+b lds;
+b dksldlsds
+a kdlsdk
+b dlkskds
+exit
+b dsd
+b ds;ds
+b b.txt
+a ;sdfkksd
+a a.txt
+c
+exit
+c ldsds
+c c.txt
+exit
+c c.txt
+exit
+c 
+c ks
+c c.txt
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exi
+exit
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+ls
+a
+a ldss
+a a.txt
+b b.txt
+c c.txt
+ls
+access
+accton
+alias
+awk
+bzmore
+bzmore
+ls
+exitt
+exit
+ls
+ff
+q
+s
+a
+a
+a test.txt
+a a.txt.
+a a.txt
+b b.txt
+c c.txt
