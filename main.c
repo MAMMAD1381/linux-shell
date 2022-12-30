@@ -11,48 +11,43 @@
 #include <string.h>
 #include <signal.h>
 
-#define clear() printf("\033[H\033[J")
+#define clear() printf("\033[H\033[J") //clears the page
 
-const int MAX = 1000;
-char** TOKEN;
+const int MAX = 1000; //maximum size of arrays in program
+char** TOKEN; //list of commands
 
-void welcome();
-void printDir();
-void execute(char *input);
-void getInput();
-bool myCommands(char* input);
-void error();
-void addCommand(char* command);
-void a();
-void b();
-void c();
-void d();
-void f();
-void g();
-char** splitter(const char * str, const char * delim);
-bool fileOpener(char* input);
-bool fileValidator(char* input);
-char* fileToText(FILE* file);
-void addHistory(char* input);
-int mostFrequent(char* string);
-void handleSigint(int sig);
-int  isEmpty(const char *str);
-FILE* removeEmptyLines(FILE *file);
-char* removeSpaces(char *string);
-void printFile(FILE *fptr);
+void welcome(); //welcome page
+void printDir(); //prints the current directory
+void execute(char *input); //executes the given command
+void getInput(); //receives the input from user
+bool myCommands(char* input); //additional commands
+void error(); //prints an error
+void a(); //cuts the first string
+void b(); //most frequent char in text
+void c(); //deletes all empty spaces such as space,\n,\t,...
+void d(); //displays all onCommented lines
+void f(); //number of text lines
+void g(); //first 10 lines of text or more ...
+char** splitter(const char * str, const char * delim); //splits a string base on the char you want
+bool fileValidator(char* input); //validates the file base of given location
+char* fileToText(FILE* file); //returns a text of file
+void addHistory(char* input); //adds the commands to history.txt
+void handleSigint(int sig); //handles the ctrl+c
+bool isEmpty(const char *str); //returns a bool based on text given to
+FILE* removeEmptyLines(FILE *file); //removes empty lines of given file
+char* removeSpaces(char *string); //removes space of a text
+void printFile(FILE *fptr); //prints the given file as a text
 
 int main() {
     signal(SIGINT, handleSigint);
     welcome();
     getInput();
-
     printDir();
-
 
     return 0;
 }
 
-char ** splitter(const char * str, const char * delim){
+char ** splitter(const char * str, const char* delim){
     /* count words */
     char * s = strdup(str);
 
@@ -143,7 +138,7 @@ void printDir(){
 }
 
 void error(){
-    printf("wrong command\ntry using help\n");
+    fprintf(stderr,"wrong command\ntry using help\n");
     fflush(stdout);
     sleep(1);
     clear();
@@ -181,15 +176,90 @@ bool myCommands(char* input){
 }
 
 void g() {
-    printf("g\n");
+    if(fileValidator(TOKEN[1])){
+
+        FILE* file;
+        file = fopen(TOKEN[1],"r");
+        char* text = fileToText(file);
+        fclose(file);
+        int lineNumberToShow = 10;
+        int counter = 1;
+
+        for (char c = *text; c; c=*++text) {
+            printf("%c",c);
+            if(c == '\n')
+                counter++;
+            if(counter == lineNumberToShow+1)
+                break;
+        }
+
+    }
+
+    else {
+        printf("no such file\n");
+        error();
+    }
+
+    printf("********* g command *********\n");
 }
 
 void f() {
-    printf("f\n");
+    if(fileValidator(TOKEN[1])){
+        FILE* file;
+        int count = 0; // Line counter (result)
+        file = fopen(TOKEN[1], "r");
+
+
+        char* text = fileToText(file);
+        fclose(file);
+
+        for (char c = *text; c; c=*++text) {
+            if(c == '\n')
+                count++;
+        }
+
+        printf("%d",count+1);
+    }
+
+    else {
+        printf("no such file\n");
+        error();
+    }
+
+    printf("********* f command *********\n");
 }
 
 void d() {
-    printf("d\n");
+    if(fileValidator(TOKEN[1])){
+        FILE* file;
+        file = fopen(TOKEN[1],"r");
+        char* text = fileToText(file);
+
+        int i=0;
+        char lastchar;
+        for (char c = *text; c; c=*++text) {
+            int hashtag = 35;
+
+            if((c == hashtag) && (lastchar == '\n')){
+                while(c!=0) {
+                    c = *++text;
+                    lastchar = c;
+                }
+                c=*++text;
+            }
+            i++;
+            printf("%c",c);
+            lastchar = c;
+        }
+        fclose(file);
+    }
+
+    else {
+        printf("no such file\n");
+        error();
+    }
+
+    printf("********* c command *********\n");
 }
 
 void c() {
@@ -247,7 +317,6 @@ void b() {
         printf("no such file\n");
         error();
     }
-
 
     printf("********* b command *********\n");
 }
@@ -313,24 +382,9 @@ void addHistory(char* input){
     }
 }
 
-int mostFrequent(char* string){
-    int count[256] = {0}; // Assum char is ASCII
-    int max = 0;
-    int i;
-
-    for(i=0; i < strlen(string) ;i++) {
-        count[(unsigned char)(string[i])] ++;
-    }
-
-    for(i=0; i < 256 ;i++) {
-        if (count[i] > max)
-            max = count[i];
-    }
-    return max;
-}
-
 void handleSigint(int sig){
-    printf("Caught signal %d\n", sig);//todo ^c
+    clear();
+    printDir();
 }
 
 void printFile(FILE *fptr)
@@ -341,7 +395,7 @@ void printFile(FILE *fptr)
         putchar(ch);
 }
 
-int isEmpty(const char *str)
+bool isEmpty(const char *str)
 {
     char ch;
 
@@ -351,63 +405,46 @@ int isEmpty(const char *str)
 
         // Check non whitespace character
         if(ch != ' ' && ch != '\t' && ch != '\n' && ch != '\r' && ch != '\0')
-            return 0;
+            return true;
 
     } while (ch != '\0');
 
-    return 1;
+    return false;
 }
 
 FILE* removeEmptyLines(FILE *file){
     FILE* temp;
     temp = fopen("remove-blanks.tmp", "w");
 
-
-    /* Exit if file not opened successfully */
-    if (file == NULL || temp == NULL)
-    {
-        printf("Unable to open file.\n");
-        printf("Please check you have read/write previleges.\n");
-
-        exit(EXIT_FAILURE);
-    }
-
-    // Move src file pointer to beginning
     rewind(file);
 
-    // Remove empty lines from file.
     char buffer[MAX];
 
     while ((fgets(buffer, MAX, file)) != NULL)
     {
-        /* If current line is not empty then write to temporary file */
+        // If current line is not empty then write to temporary file
         if(!isEmpty(buffer))
             fputs(buffer, temp);
     }
 
-    /* Close all open files */
     fclose(temp);
     temp = fopen("remove-blanks.tmp", "r");
     return temp;
 
 }
 
-char * removeSpaces(char *string)
-{
-    // non_space_count to keep the frequency of non space characters
+char * removeSpaces(char *string){
     int non_space_count = 0;
 
-    //Traverse a string and if it is non space character then, place it at index non_space_count
     for (int i = 0; string[i] != '\0'; i++)
     {
         if (string[i] != ' ')
         {
             string[non_space_count] = string[i];
-            non_space_count++;//non_space_count incremented
+            non_space_count++;
         }
     }
 
-    //Finally placing final character at the string end
     string[non_space_count] = '\0';
     return string;
 }

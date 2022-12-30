@@ -246,3 +246,87 @@ exit
 c c.txt
 exit
 c c.txt
+exit
+d d.txt
+exit
+d d.txt
+exit
+d d.txt
+d d.txt
+exit
+d d.txt
+exit
+d d.txt
+exit
+d d.txt
+exit
+d d.txt
+exit
+d d.txt
+exit
+d d.txt
+exit
+d d.txt
+exit
+d d.txt
+exit
+d d.txt
+exit
+ls
+d d.txt
+d d.txt
+exit
+f f.txt
+f f.txt
+f
+f f.txt
+f f.txt
+f f.txt
+f f.txt
+exit
+f f.txt
+exit
+g g.txt
+exit
+g g.txt
+c c.txt
+exit
+c c.txt
+pwd
+pwd --help
+exit
+ls
+ls
+a
+
+lsd
+ld
+i
+a
+a 
+
+exit
+pwd
+exit
+sasa
+sa
+help
+exit
+cd desktop
+cd /c
+cd
+pwd
+pwd --l
+cd
+exit
+cd
+cd
+pwd
+exit
+ssds
+exit
+sa
+a
+exit
+ls
+a a.txt
