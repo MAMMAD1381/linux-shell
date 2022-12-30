@@ -22,7 +22,6 @@ void execute(char *input);
 void getInput();
 bool myCommands(char* input);
 void error();
-void addCommand(char* command);
 void a();
 void b();
 void c();
@@ -30,11 +29,9 @@ void d();
 void f();
 void g();
 char** splitter(const char * str, const char * delim);
-bool fileOpener(char* input);
 bool fileValidator(char* input);
 char* fileToText(FILE* file);
 void addHistory(char* input);
-int mostFrequent(char* string);
 void handleSigint(int sig);
 int  isEmpty(const char *str);
 FILE* removeEmptyLines(FILE *file);
@@ -45,14 +42,12 @@ int main() {
     signal(SIGINT, handleSigint);
     welcome();
     getInput();
-
     printDir();
-
 
     return 0;
 }
 
-char ** splitter(const char * str, const char * delim){
+char ** splitter(const char * str, const char* delim){
     /* count words */
     char * s = strdup(str);
 
@@ -181,15 +176,90 @@ bool myCommands(char* input){
 }
 
 void g() {
-    printf("g\n");
+    if(fileValidator(TOKEN[1])){
+
+        FILE* file;
+        file = fopen(TOKEN[1],"r");
+        char* text = fileToText(file);
+        fclose(file);
+        int lineNumberToShow = 10;
+        int counter = 1;
+
+        for (char c = *text; c; c=*++text) {
+            printf("%c",c);
+            if(c == '\n')
+                counter++;
+            if(counter == lineNumberToShow+1)
+                break;
+        }
+
+    }
+
+    else {
+        printf("no such file\n");
+        error();
+    }
+
+    printf("********* g command *********\n");
 }
 
 void f() {
-    printf("f\n");
+    if(fileValidator(TOKEN[1])){
+        FILE* file;
+        int count = 0; // Line counter (result)
+        file = fopen(TOKEN[1], "r");
+
+
+        char* text = fileToText(file);
+        fclose(file);
+
+        for (char c = *text; c; c=*++text) {
+            if(c == '\n')
+                count++;
+        }
+
+        printf("%d",count+1);
+    }
+
+    else {
+        printf("no such file\n");
+        error();
+    }
+
+    printf("********* f command *********\n");
 }
 
 void d() {
-    printf("d\n");
+    if(fileValidator(TOKEN[1])){
+        FILE* file;
+        file = fopen(TOKEN[1],"r");
+        char* text = fileToText(file);
+
+        int i=0;
+        char lastchar;
+        for (char c = *text; c; c=*++text) {
+            int hashtag = 35;
+
+            if((c == hashtag) && (lastchar == '\n')){
+                while(c!=0) {
+                    c = *++text;
+                    lastchar = c;
+                }
+                c=*++text;
+            }
+            i++;
+            printf("%c",c);
+            lastchar = c;
+        }
+        fclose(file);
+    }
+
+    else {
+        printf("no such file\n");
+        error();
+    }
+
+    printf("********* c command *********\n");
 }
 
 void c() {
@@ -247,7 +317,6 @@ void b() {
         printf("no such file\n");
         error();
     }
-
 
     printf("********* b command *********\n");
 }
@@ -311,22 +380,6 @@ void addHistory(char* input){
         fprintf(file,"\n");
         fclose(file);
     }
-}
-
-int mostFrequent(char* string){
-    int count[256] = {0}; // Assum char is ASCII
-    int max = 0;
-    int i;
-
-    for(i=0; i < strlen(string) ;i++) {
-        count[(unsigned char)(string[i])] ++;
-    }
-
-    for(i=0; i < 256 ;i++) {
-        if (count[i] > max)
-            max = count[i];
-    }
-    return max;
 }
 
 void handleSigint(int sig){
