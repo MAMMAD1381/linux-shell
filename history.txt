@@ -193,3 +193,56 @@ a a.txt.
 a a.txt
 b b.txt
 c c.txt
+exit
+c c.txt
+exit
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+C:\Users\mohammad\Documents\GitHub\linux-shell\c.txt
+exit
+c c.txt
+exit
+c c.txt
+c c.txt
+
+c c.txt
+c c.txt
+exit
+c c.txt
+exit
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+c c.txt
+exit
+c c.txt
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt
+exit
+c c.txt

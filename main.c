@@ -36,8 +36,10 @@ char* fileToText(FILE* file);
 void addHistory(char* input);
 int mostFrequent(char* string);
 void handleSigint(int sig);
-
-
+int  isEmpty(const char *str);
+FILE* removeEmptyLines(FILE *file);
+char* removeSpaces(char *string);
+void printFile(FILE *fptr);
 
 int main() {
     signal(SIGINT, handleSigint);
@@ -192,9 +194,12 @@ void d() {
 
 void c() {
     if(fileValidator(TOKEN[1])){
+
         FILE* file;
-        file = fopen(TOKEN[1],"r");
-        char* text = fileToText(file);
+        file  = fopen(TOKEN[1], "r");
+
+        printf("\n%s\n",removeSpaces(fileToText(removeEmptyLines(file))));
+
         fclose(file);
     }
 
@@ -326,6 +331,85 @@ int mostFrequent(char* string){
 
 void handleSigint(int sig){
     printf("Caught signal %d\n", sig);//todo ^c
+}
+
+void printFile(FILE *fptr)
+{
+    char ch;
+
+    while((ch = fgetc(fptr)) != EOF)
+        putchar(ch);
+}
+
+int isEmpty(const char *str)
+{
+    char ch;
+
+    do
+    {
+        ch = *(str++);
+
+        // Check non whitespace character
+        if(ch != ' ' && ch != '\t' && ch != '\n' && ch != '\r' && ch != '\0')
+            return 0;
+
+    } while (ch != '\0');
+
+    return 1;
+}
+
+FILE* removeEmptyLines(FILE *file){
+    FILE* temp;
+    temp = fopen("remove-blanks.tmp", "w");
+
+
+    /* Exit if file not opened successfully */
+    if (file == NULL || temp == NULL)
+    {
+        printf("Unable to open file.\n");
+        printf("Please check you have read/write previleges.\n");
+
+        exit(EXIT_FAILURE);
+    }
+
+    // Move src file pointer to beginning
+    rewind(file);
+
+    // Remove empty lines from file.
+    char buffer[MAX];
+
+    while ((fgets(buffer, MAX, file)) != NULL)
+    {
+        /* If current line is not empty then write to temporary file */
+        if(!isEmpty(buffer))
+            fputs(buffer, temp);
+    }
+
+    /* Close all open files */
+    fclose(temp);
+    temp = fopen("remove-blanks.tmp", "r");
+    return temp;
+
+}
+
+char * removeSpaces(char *string)
+{
+    // non_space_count to keep the frequency of non space characters
+    int non_space_count = 0;
+
+    //Traverse a string and if it is non space character then, place it at index non_space_count
+    for (int i = 0; string[i] != '\0'; i++)
+    {
+        if (string[i] != ' ')
+        {
+            string[non_space_count] = string[i];
+            non_space_count++;//non_space_count incremented
+        }
+    }
+
+    //Finally placing final character at the string end
+    string[non_space_count] = '\0';
+    return string;
 }
 
 
