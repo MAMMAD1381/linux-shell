@@ -330,3 +330,14 @@ a
 exit
 ls
 a a.txt
+exit
+exit
+exit
+exit
+exit
+ls
+a a.txt
+b b.txt
+exit
+dsada
+exit
