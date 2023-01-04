@@ -15,3 +15,8 @@ list of additional commands:
 it has a simple history txt file which contains all program recent commands
 
 some examples of commands:
+![](welcome.png)
+![](directory.png)
+![](linux-command.png)
+![](additional.png)
+![](exit.png)
